@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class YandexCloudStorageServiceTest {
 
-    @Qualifier("yandexCloudStorageService")
     @Autowired
     private RemoteStorageService storageService;
 
