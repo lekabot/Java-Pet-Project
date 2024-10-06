@@ -4,6 +4,7 @@ import edu.school21.app.api.request.PastSaveRequest;
 import edu.school21.app.service.PastService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,19 @@ public class PastController {
 
     @GetMapping("/{hash}")
     public ResponseEntity<String> getText(@PathVariable String hash) {
-        String text = pastService.getTextByHash();
-        return ResponseEntity.ok(text);
+        try {
+            String text = pastService.getTextByHash(hash);
+            return ResponseEntity.ok(text);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hash does not exist");
+        }
     }
 
     @DeleteMapping("/delete/{hash}")
     public ResponseEntity<String> deleteText(@PathVariable String hash) {
+        if (pastService.getPastByHash(hash).isEmpty()) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hash does not exist");
+        }
         pastService.deleteTextByHash(hash);
         return ResponseEntity.ok("Text has been successfully deleted");
     }

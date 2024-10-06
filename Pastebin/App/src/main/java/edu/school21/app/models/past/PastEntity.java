@@ -1,4 +1,4 @@
-package edu.school21.app.models;
+package edu.school21.app.models.past;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -11,8 +11,6 @@ public class PastEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String hash;
-    private String url;
-
     @Column(name = "expiration_time")
     private Long expirationTimeSeconds;
 

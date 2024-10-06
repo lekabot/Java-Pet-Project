@@ -6,4 +6,5 @@ public interface RemoteStorageService {
     void upload(String hash, String data);
     void delete(String hash);
     String read(String hash);
+    void deleteAll();
 }

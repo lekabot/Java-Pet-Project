@@ -9,6 +9,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -23,10 +24,10 @@ public class Config {
 
         return AmazonS3ClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
-                        "https://storage.yandexcloud.net", null // Установите регион в null
+                        "https://storage.yandexcloud.net", null
                 ))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withPathStyleAccessEnabled(true) // Включите, если необходимо
+                .withPathStyleAccessEnabled(true)
                 .build();
     }
 }

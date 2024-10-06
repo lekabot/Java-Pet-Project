@@ -1,8 +1,7 @@
 package edu.school21.app.service;
 
-import edu.school21.app.api.request.PastSaveRequest;
-import edu.school21.app.models.HashEntity;
-import edu.school21.app.repository.HashRepository;
+import edu.school21.app.models.hash.HashEntity;
+import edu.school21.app.repository.hash.HashRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +19,22 @@ public class HashServiceImpl implements HashService {
 
     @Override
     public String createHash() {
-        return UUID.randomUUID().toString().substring(0, 32);
+        return UUID.randomUUID().toString().substring(0, 8);
     }
 
     @Override
     @Transactional
     public void saveHash(String hash) {
-        if (isNotExist(hash)) {
-            HashEntity hashEntity = new HashEntity();
-            hashEntity.setIsActive(true);
-            hashEntity.setCreatedAt(System.currentTimeMillis());
-
-            hashRepository.save(hashEntity);
+        while (!isNotExist(hash)) {
+            hash = createHash();
         }
+
+        HashEntity hashEntity = new HashEntity();
+        hashEntity.setHash(hash);
+        hashEntity.setIsActive(true);
+        hashEntity.setCreatedAt(System.currentTimeMillis());
+
+        hashRepository.save(hashEntity);
     }
 
     @Override
@@ -51,7 +53,13 @@ public class HashServiceImpl implements HashService {
     }
 
     @Override
+    @Transactional
     public void deleteHash(String hash) {
         hashRepository.deleteByHash(hash);
+    }
+
+    @Override
+    public Optional<HashEntity> getHashEntity(String hash) {
+        return hashRepository.findByHash(hash);
     }
 }

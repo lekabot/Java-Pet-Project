@@ -1,4 +1,15 @@
+version: '3'
 services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - hash_db
+      - s3_db
+    networks:
+      - app-network
+
   hash_db:
     image: postgres:latest
     container_name: hash_db
@@ -8,13 +19,21 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5433:5432"
+    networks:
+      - app-network
 
   s3_db:
     image: postgres:latest
     container_name: s3_db
     environment:
-      POSTGRES_DB: s3_db_database
+      POSTGRES_DB: s3_database
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
       - "5434:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,7 +1,9 @@
 package edu.school21.app.service;
 
-import edu.school21.app.api.request.PastSaveRequest;
+import edu.school21.app.models.hash.HashEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public interface HashService {
@@ -10,4 +12,5 @@ public interface HashService {
     String readHash(String hash);
     boolean isNotExist(String hash);
     void deleteHash(String hash);
+    Optional<HashEntity> getHashEntity(String hash);
 }

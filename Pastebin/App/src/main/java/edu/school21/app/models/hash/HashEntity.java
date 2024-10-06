@@ -1,4 +1,4 @@
-package edu.school21.app.models;
+package edu.school21.app.models.hash;
 
 import jakarta.persistence.*;
 import lombok.Data;

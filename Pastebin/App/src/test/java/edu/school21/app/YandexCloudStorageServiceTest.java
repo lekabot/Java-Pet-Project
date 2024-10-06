@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestComponent;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {YandexCloudStorageService.class, Config.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@ActiveProfiles("test")
 public class YandexCloudStorageServiceTest {
 
     @Autowired
@@ -72,6 +74,28 @@ public class YandexCloudStorageServiceTest {
 
         assertThrows(Exception.class, () -> {
             s3Client.getObject("mypastebinbacket", testHash);
+        });
+    }
+
+    @Test
+    public void testDeleteAll() {
+        String testHash1 = "testHash1";
+        String testData1 = "Hello, Yandex Cloud 1!";
+
+        String testHash2 = "testHash2";
+        String testData2 = "Hello, Yandex Cloud 2!";
+
+        storageService.upload(testHash1, testData1);
+        storageService.upload(testHash2, testData2);
+
+        storageService.deleteAll();
+
+        assertThrows(Exception.class, () -> {
+            s3Client.getObject("mypastebinbacket", testHash1);
+        });
+
+        assertThrows(Exception.class, () -> {
+            s3Client.getObject("mypastebinbacket", testHash2);
         });
     }
 }
