@@ -67,7 +67,7 @@ public class S3DatabaseConfig {
 
     private Map<String, Object> hibernateProperties() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", env.getProperty("spring.jpa.s3.hibernate.dialect"));
+//        properties.put("hibernate.dialect", env.getProperty("spring.jpa.s3.hibernate.dialect"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.s3.hibernate.ddl-auto"));
         properties.put("hibernate.show_sql", env.getProperty("spring.jpa.s3.show-sql"));
         return properties;

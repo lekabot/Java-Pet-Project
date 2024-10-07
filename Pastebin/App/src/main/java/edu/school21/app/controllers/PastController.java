@@ -37,10 +37,11 @@ public class PastController {
 
     @DeleteMapping("/delete/{hash}")
     public ResponseEntity<String> deleteText(@PathVariable String hash) {
-        if (pastService.getPastByHash(hash).isEmpty()) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hash does not exist");
+        try {
+            pastService.deleteTextByHash(hash);
+            return ResponseEntity.ok("Text has been successfully deleted");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hash does not exist");
         }
-        pastService.deleteTextByHash(hash);
-        return ResponseEntity.ok("Text has been successfully deleted");
     }
 }
