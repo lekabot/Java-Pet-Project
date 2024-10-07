@@ -68,7 +68,7 @@ public class HashDatabaseConfig {
 
     private Map<String, Object> hibernateProperties() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", env.getProperty("spring.jpa.hash.hibernate.dialect"));
+//        properties.put("hibernate.dialect", env.getProperty("spring.jpa.hash.hibernate.dialect"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hash.hibernate.ddl-auto"));
         properties.put("hibernate.show_sql", env.getProperty("spring.jpa.hash.show-sql"));
         return properties;
