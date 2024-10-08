@@ -7,6 +7,8 @@ services:
     depends_on:
       - hash_db
       - s3_db
+      - redis_hash
+      - redis_s3
     networks:
       - app-network
 
@@ -33,6 +35,36 @@ services:
       - "5434:5432"
     networks:
       - app-network
+
+  redis_s3:
+    image: redis:latest
+    container_name: redis_s3
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis_hash:
+    image: redis:latest
+    container_name: redis_hash
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6377:6379"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   app-network:

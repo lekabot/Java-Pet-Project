@@ -3,9 +3,7 @@ package edu.school21.app;
 import edu.school21.app.models.hash.HashEntity;
 import edu.school21.app.repository.hash.HashRepository;
 import edu.school21.app.service.HashService;
-import edu.school21.app.service.HashServiceImpl;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,20 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest()
 @ActiveProfiles("test")
 public class HashServiceImplTest {
+    @Autowired
     private HashService hashService;
 
-    private HashRepository hashRepository;
-
     @Autowired
-    public HashServiceImplTest(HashService hashService, HashRepository hashRepository) {
-        this.hashService = hashService;
-        this.hashRepository = hashRepository;
-    }
-
-    @BeforeEach
-    public void setUp() {
-        hashService = new HashServiceImpl(hashRepository);
-    }
+    private HashRepository hashRepository;
 
     @Test
     public void testCrateHash() {
@@ -79,5 +68,4 @@ public class HashServiceImplTest {
 
         assertTrue(hashService.isNotExist(hash));
     }
-
 }

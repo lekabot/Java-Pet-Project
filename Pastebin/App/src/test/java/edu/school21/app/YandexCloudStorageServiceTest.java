@@ -2,18 +2,16 @@ package edu.school21.app;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
-import edu.school21.app.config.Config;
+import edu.school21.app.config.YandexCloudConfig;
 import edu.school21.app.service.RemoteStorageService;
 import edu.school21.app.service.YandexCloudStorageService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestComponent;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.BufferedReader;
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(classes = {YandexCloudStorageService.class, Config.class})
+@SpringBootTest(classes = {YandexCloudStorageService.class, YandexCloudConfig.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ActiveProfiles("test")
 public class YandexCloudStorageServiceTest {

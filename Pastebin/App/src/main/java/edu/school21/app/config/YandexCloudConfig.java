@@ -9,11 +9,9 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@PropertySource("classpath:application.properties")
-public class Config {
+public class YandexCloudConfig {
 
     @Bean
     public AmazonS3 s3Client() {

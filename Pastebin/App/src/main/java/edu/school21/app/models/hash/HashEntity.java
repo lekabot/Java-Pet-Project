@@ -16,5 +16,5 @@ public class HashEntity {
     private Boolean isActive;
 
     @Column(name = "created_at")
-   private Long createdAt;
+    private Long createdAt;
 }
